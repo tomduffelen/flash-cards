@@ -15,7 +15,7 @@ const CONFIG = {
     textColour: '#ffffff',
     lineHeight: 1.2,
   },
-  sprintDates: {
+  date: {
     x: 1600,
     y: 30,
     maxWidth: 300,
@@ -95,7 +95,7 @@ const CONFIG = {
 // ── Field → DOM id mapping ───────────────────────────────────
 const FIELDS = [
   { key: 'projectName', id: 'projectName' },
-  { key: 'sprintDates', id: 'sprintDates' },
+  { key: 'date',        id: 'date'        },
   { key: 'status',      id: 'status'      },
   { key: 'doneSince',   id: 'doneSince'   },
   { key: 'doingNow',    id: 'doingNow'    },
@@ -204,6 +204,11 @@ function render() {
     }
   }
 }
+
+// ── Pre-populate date with today ─────────────────────────────
+const today = new Date();
+const formatted = today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+document.getElementById('date').value = formatted;
 
 // ── Event listeners ──────────────────────────────────────────
 
