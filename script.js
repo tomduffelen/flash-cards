@@ -16,9 +16,9 @@ const CONFIG = {
     lineHeight: 1.2,
   },
   date: {
-    x: 1480,
+    x: 1620,
     y: 10,
-    maxWidth: 400,
+    maxWidth: 280,
     fontSize: 31,
     fontWeight: 'bold',
     fontFamily: 'Arial, sans-serif',
@@ -26,9 +26,9 @@ const CONFIG = {
     lineHeight: 1.3,
   },
   status: {
-    x: 1480,
+    x: 1620,
     y: 38,
-    maxWidth: 400,
+    maxWidth: 280,
     fontSize: 31,
     fontWeight: 'bold',
     fontFamily: 'Arial, sans-serif',
