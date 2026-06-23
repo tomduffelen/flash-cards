@@ -90,7 +90,8 @@ label {
 }
 
 input[type="text"],
-textarea {
+textarea,
+select {
   width: 100%;
   padding: 8px 10px;
   font-size: 0.85rem;
@@ -100,17 +101,31 @@ textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   resize: vertical;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.2s;
   line-height: 1.5;
 }
 
 input[type="text"]:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.12);
   background: #fff;
 }
+
+/* Status dropdown colour coding */
+select#status {
+  font-weight: 600;
+  cursor: pointer;
+  appearance: auto;
+}
+
+select#status.status-on-track   { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+select#status.status-at-risk    { background: #fef9c3; border-color: #f59e0b; color: #92400e; }
+select#status.status-off-track  { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+select#status.status-completed  { background: #dbeafe; border-color: #3b82f6; color: #1e40af; }
+select#status.status-on-hold    { background: #f3f4f6; border-color: #9ca3af; color: #374151; }
 
 textarea {
   min-height: 80px;

@@ -16,8 +16,8 @@ const CONFIG = {
     lineHeight: 1.2,
   },
   date: {
-    x: 1600,
-    y: 30,
+    x: 1670,
+    y: 10,
     maxWidth: 300,
     fontSize: 31,
     fontWeight: 'bold',
@@ -26,13 +26,13 @@ const CONFIG = {
     lineHeight: 1.3,
   },
   status: {
-    x: 1600,
-    y: 58,
+    x: 1670,
+    y: 38,
     maxWidth: 300,
     fontSize: 31,
     fontWeight: 'bold',
     fontFamily: 'Arial, sans-serif',
-    textColour: '#2dd4bf',
+    textColour: '#2dd4bf', // overridden at render time by selected option's data-colour
     lineHeight: 1.3,
   },
   // Box 1 — top left panel
@@ -199,7 +199,13 @@ function render() {
   for (const { key, id } of FIELDS) {
     const el  = document.getElementById(id);
     const cfg = CONFIG[key];
-    if (el && cfg) {
+    if (!el || !cfg) continue;
+
+    if (key === 'status' && el.tagName === 'SELECT') {
+      // Use the colour stored on the selected option rather than the static CONFIG colour
+      const selectedColour = el.options[el.selectedIndex]?.dataset?.colour || cfg.textColour;
+      drawWrappedText(ctx, el.value, { ...cfg, textColour: selectedColour });
+    } else {
       drawWrappedText(ctx, el.value, cfg);
     }
   }
@@ -212,10 +218,24 @@ document.getElementById('date').value = formatted;
 
 // ── Event listeners ──────────────────────────────────────────
 
+// Update the status dropdown's CSS colour class to match the selection
+const statusEl = document.getElementById('status');
+const statusClassMap = {
+  'On Track':  'status-on-track',
+  'At Risk':   'status-at-risk',
+  'Off Track': 'status-off-track',
+  'Completed': 'status-completed',
+  'On Hold':   'status-on-hold',
+};
+function updateStatusClass() {
+  statusEl.className = statusClassMap[statusEl.value] || '';
+}
+statusEl.addEventListener('change', () => { updateStatusClass(); render(); });
+
 // Redraw on every keystroke across all inputs and textareas
 for (const { id } of FIELDS) {
   const el = document.getElementById(id);
-  if (el) el.addEventListener('input', render);
+  if (el && id !== 'status') el.addEventListener('input', render);
 }
 
 // Export button — saves the full-resolution 1920 × 1080 canvas
@@ -232,5 +252,6 @@ document.getElementById('clearBtn').addEventListener('click', () => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   }
+  updateStatusClass();
   render();
 });

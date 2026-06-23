@@ -26,7 +26,14 @@
 
       <div class="field-group">
         <label for="status">Status</label>
-        <input type="text" id="status" placeholder="On Track">
+        <select id="status">
+          <option value="" data-colour="#2dd4bf">— Select status —</option>
+          <option value="On Track" data-colour="#22c55e">On Track</option>
+          <option value="At Risk" data-colour="#f59e0b">At Risk</option>
+          <option value="Off Track" data-colour="#ef4444">Off Track</option>
+          <option value="Completed" data-colour="#3b82f6">Completed</option>
+          <option value="On Hold" data-colour="#9ca3af">On Hold</option>
+        </select>
       </div>
 
       <div class="section-label">Top Panels</div>
